@@ -8,7 +8,7 @@ on:
       - cron: '0 0 * * 6' #This will run at 0:00 on Saturday: https://crontab.guru. Adjust the cron for scheduled test runs
 
 jobs:
-#runs-on will need to be modified to an on-prem server, windows or linux
+#runs-on will need to be modified to an on-prem server, windows or linux.
   build_and_test:
     runs-on: ubuntu-latest
 
