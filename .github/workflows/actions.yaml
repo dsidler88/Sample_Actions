@@ -5,7 +5,7 @@ on:
     branch:
       - "**" # This will run on all branches, and must be quoted to be handled by yaml
     schedule:
-      - cron: '0 0 * * 6' #This will run at 0:00 on Saturday: https://crontab.guru
+      - cron: '0 0 * * 6' #This will run at 0:00 on Saturday: https://crontab.guru. Adjust the cron for scheduled test runs
 
 jobs:
 #runs-on will need to be modified to an on-prem server, windows or linux
@@ -17,6 +17,8 @@ jobs:
       HEADLESS_CHROME: true
 
     steps:
+      - name: Set start time
+        run: echo "START_TIME=$(date +%s)" >> $GITHUB_ENV
       - uses: actions/checkout@v2
       - uses: actions/setup-java@v2
         with:
@@ -25,3 +27,9 @@ jobs:
       - name: Run tests with maven
         working-directory: webdriver_java
         run: mvn test
+      - name: Collect build data
+        working-directory: webdriver_java
+        if: always()
+        run: |
+          echo "TOTAL_DURATION=$(expr $(date +%s) - ${START_TIME})"
+          ./resources/test_result_script.sh

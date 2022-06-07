@@ -1,3 +1,5 @@
 Github Actions
 
-The automated action will work natively if the script .github/workflows/actions.yaml is included in the repo.
+The automated actions will work natively if the folder and script are included:
+
+.github/workflows/actions.yaml included in the root repository.
